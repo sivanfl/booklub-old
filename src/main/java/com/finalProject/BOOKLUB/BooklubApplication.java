@@ -1,4 +1,4 @@
-package com.finalProject.BOOKLUB;
+package com.finalProject.booklub;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
