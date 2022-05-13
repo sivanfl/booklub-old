@@ -1,6 +1,6 @@
-/Users/sywnplwmn/Desktop/BOOKLUB/src/main/java/com/finalProject/BOOKLUB/BOOKLUB/BookRepository.java
-/Users/sywnplwmn/Desktop/BOOKLUB/src/main/java/com/finalProject/BOOKLUB/BOOKLUB/BookConfig.java
-/Users/sywnplwmn/Desktop/BOOKLUB/src/main/java/com/finalProject/BOOKLUB/BooklubApplication.java
-/Users/sywnplwmn/Desktop/BOOKLUB/src/main/java/com/finalProject/BOOKLUB/BOOKLUB/Book.java
-/Users/sywnplwmn/Desktop/BOOKLUB/src/main/java/com/finalProject/BOOKLUB/BOOKLUB/BookService.java
-/Users/sywnplwmn/Desktop/BOOKLUB/src/main/java/com/finalProject/BOOKLUB/BOOKLUB/BookController.java
+/Users/sywnplwmn/Desktop/BOOKLUB/src/main/java/com/finalProject/booklub/repository/entities/Book.java
+/Users/sywnplwmn/Desktop/BOOKLUB/src/main/java/com/finalProject/booklub/BookConfig.java
+/Users/sywnplwmn/Desktop/BOOKLUB/src/main/java/com/finalProject/booklub/controller/BookController.java
+/Users/sywnplwmn/Desktop/BOOKLUB/src/main/java/com/finalProject/booklub/BooklubApplication.java
+/Users/sywnplwmn/Desktop/BOOKLUB/src/main/java/com/finalProject/booklub/repository/BookRepository.java
+/Users/sywnplwmn/Desktop/BOOKLUB/src/main/java/com/finalProject/booklub/service/BookService.java
