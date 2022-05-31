@@ -2,5 +2,6 @@ com/finalProject/booklub/repository/BookRepository.class
 com/finalProject/booklub/service/BookService.class
 com/finalProject/booklub/repository/entities/Book.class
 com/finalProject/booklub/BooklubApplication.class
+com/finalProject/booklub/BookSpec.class
 com/finalProject/booklub/controller/BookController.class
 com/finalProject/booklub/BookConfig.class

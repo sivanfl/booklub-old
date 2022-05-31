@@ -1,40 +1,21 @@
 package com.finalProject.booklub;
 
 
-import com.finalProject.booklub.repository.BookRepository;
-import com.finalProject.booklub.repository.entities.Book;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
+import net.kaczmarzyk.spring.data.jpa.web.SpecificationArgumentResolver;
 import org.springframework.context.annotation.Configuration;
-
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.List;
 
 @Configuration
-public class BookConfig {
-
-    @Bean
-    CommandLineRunner CommandLineRunner (BookRepository bookRepository){
-        return args -> {
-            Book book = new Book(
-                    "Alice's Adventures in Wonderland",
-                    "Jon",
-                    "Krakauer",
-                    1997,
-                    "puffin books"
-                    );
-
-            Book book1 = new Book(
-                    "Into Thin Air",
-                    "Lewis",
-                    "Carroll",
-                    1997,
-                    "anchor books"
-            );
-
-            bookRepository.saveAll(
-                    List.of(book , book1)
-            );
-        };
+@EnableTransactionManagement
+public class BookConfig implements WebMvcConfigurer {
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(new SpecificationArgumentResolver());
+        argumentResolvers.add(new PageableHandlerMethodArgumentResolver());
     }
-
 }
+

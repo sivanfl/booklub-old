@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table
 public class Book {
-    @Id
+    @Id                                                 //creating a table of books
     @SequenceGenerator(
             name = "book_sequence",
             sequenceName = "book_sequence",
@@ -16,7 +16,7 @@ public class Book {
             generator = "book_sequence"
     )
 
-        long id;
+        long id;                                        //entities of the book
         String title;
         String authorFirstName;
         String authorLastName;
