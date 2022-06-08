@@ -1,54 +1,74 @@
 package com.finalProject.booklub.controller;
 
-import com.finalProject.booklub.BookSpec;
-import com.finalProject.booklub.repository.entities.Book;
+import com.finalProject.booklub.repository.BookRepository;
+import com.finalProject.booklub.entities.Book;
 import com.finalProject.booklub.service.BookService;
+import net.kaczmarzyk.spring.data.jpa.domain.LikeIgnoreCase;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.Or;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/v1/BOOKLUB")
 public class BookController {
 
     private final BookService bookService;
+    private final BookRepository bookRepository;
 
-    @Autowired
-    public BookController(BookService bookService) {                        //connecting to the service layer
+    @Autowired                                                               //connecting to the service + data layer
+    public BookController(BookService bookService, BookRepository bookRepository) {
         this.bookService = bookService;
+        this.bookRepository = bookRepository;
     }
 
     @GetMapping                                                          //return all books on the table
-    public List<Book> getBooks (){
+    public List<Book> getBooks() {
         return bookService.getBooks();
     }
 
     @PostMapping(consumes = {"application/json"})                       //insert new book to the table
-    public void insertNewBook(@RequestBody Book book){
+    public void insertNewBook(@RequestBody Book book) {
         BookService.addNewBook(book);
     }
 
     @DeleteMapping(path = "{bookTitle}")                                //deleting specific book
-    public void deleteBook(@PathVariable("bookTitle") Book bookTitle){
+    public void deleteBook(@PathVariable("bookTitle") Book bookTitle) {
         bookService.deleteBook(bookTitle);
     }
 
     @PutMapping(path = "{bookId}")                                      //update details of existing book in the table
     public void updateBook(
-        @PathVariable("bookId") long bookId,
-        @RequestParam(required = false) String title,
-        @RequestParam(required = false) String publisher){
-    bookService.updateBook(bookId,title,publisher);
-        }
-
-
-    @GetMapping(params = "title" )                                         //search API
-    public Page<Book> findBook (BookSpec bookSpec, Pageable pageable) {
-        return bookService.searchBook (bookSpec, pageable);
+            @PathVariable("bookId") long bookId,
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String publisher) {
+        bookService.updateBook(bookId, title, publisher);
     }
+
+
+    @GetMapping("/find")                                                //search api- one parameter at a time
+    public Optional<Book> findBookByFirstName(
+            @Or({
+                    @Spec(params="title", path="title", spec = LikeIgnoreCase.class),
+                    @Spec(params="authorFirstName", path = "authorFirstName", spec = LikeIgnoreCase.class),
+                    @Spec(params="authorLastName", path = "authorLastName", spec = LikeIgnoreCase.class),
+                    @Spec(params="yearOfPublish", path = "yearOfPublish", spec = LikeIgnoreCase.class),
+                    @Spec(params="publisherName", path = "publisherName", spec = LikeIgnoreCase.class)
+            })
+            Specification<Book> bookSpec) {
+
+        return bookService.searchBook(bookSpec);
+    }
+
+                                                                            //search api- multiply parameters
+
+
+
+
+
+
 }
-
-

@@ -1,11 +1,9 @@
 package com.finalProject.booklub.service;
 
-import com.finalProject.booklub.BookSpec;
-import com.finalProject.booklub.repository.entities.Book;
+import com.finalProject.booklub.entities.Book;
 import com.finalProject.booklub.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,7 +53,9 @@ public class BookService{
         }
     }
 
-    public Page<Book> searchBook (BookSpec bookSpec, Pageable pageable)  {              //search API
-        return bookRepository.findAll(bookSpec, pageable);
-    }
+
+    public Optional<Book> searchBook (Specification<Book> bookSpec) {
+        return bookRepository.findOne(bookSpec);
+        }
+
 }
