@@ -1,61 +1,84 @@
 package com.finalProject.booklub.entities;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "users")
 public class Users {
 
+    @Id
+    @SequenceGenerator(
+            name = "users_sequence",
+            sequenceName = "users_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "users_sequence"
+    )
+    long usersId;
     String fullName;
     String email;
-    int phoneNumber;
+    String phoneNumber;
 
-    public Users(String fullName, String email, int phoneNumber) {
+
+    public Users() {
+    }
+
+    public Users(long usersId, String fullName, String email, String phoneNumber) {
+        this.usersId = usersId;
         this.fullName = fullName;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
 
-    public Users(String fullName) {
-        this.fullName = fullName;
-    }
 
-    public Users(String fullName, String email) {
+    public Users(long usersId, String fullName, String email) {
+        this.usersId = usersId;
         this.fullName = fullName;
         this.email = email;
     }
 
-    public Users(String fullName, int phoneNumber) {
-        this.fullName = fullName;
-        this.phoneNumber = phoneNumber;
+
+    public long getUsersId() {
+        return usersId;
+    }
+
+    public void setUsersId(long usersId) {
+        this.usersId = usersId;
     }
 
     public String getFullName() {
         return fullName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public int getPhoneNumber() {
-        return phoneNumber;
-    }
-
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
     @Override
     public String toString() {
-        return "Users{" +
-                "fullName='" + fullName + '\'' +
+        return "User{" +
+                "id=" + usersId +
+                ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
-                ", phoneNumber=" + phoneNumber +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }

@@ -13,18 +13,18 @@ import java.util.Optional;
 
 @Service
 public class BookService{
-    private static BookRepository bookRepository;       //connecting to repository layer to use JpaRepository function
+    private static BookRepository bookRepository;
 
    @Autowired
     public BookService(BookRepository bookRepository)  {
         this.bookRepository = bookRepository;
     }
 
-    public List<Book> getBooks() {                                           //return all books in the table
+    public List<Book> getBooks() {
        return bookRepository.findAll();
         }
 
-    public static void addNewBook(Book book) {                               //insert new book to the table if not exist and save
+    public static void addNewBook(Book book) {
         Optional<Book> bookByOptional = bookRepository.findByTitle(book.getTitle());
         if(bookByOptional.isPresent()){
             throw new IllegalStateException("book already insert");
@@ -32,7 +32,7 @@ public class BookService{
         bookRepository.save(book);
     }
 
-    public void deleteBook(Book bookTitle) {                                //deleting existing book from the table
+    public void deleteBook(Book bookTitle) {
        bookRepository.findByTitle(bookTitle.getTitle());
         boolean exists = bookRepository.existsById(bookTitle.getId());
         if(!exists){
@@ -41,7 +41,7 @@ public class BookService{
         bookRepository.deleteById(bookTitle.getId());
     }
 
-    @Transactional                                                         //update details of existing book in the table
+    @Transactional
     public void updateBook(long bookI, String title, String publisher){
        Book book = bookRepository.findById(bookI).orElseThrow(() -> new IllegalStateException("the book is not exist"));
 

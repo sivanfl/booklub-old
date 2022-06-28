@@ -3,9 +3,9 @@ package com.finalProject.booklub.entities;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "book")
 public class Book {
-    @Id                                                 //creating a table of books
+    @Id
     @SequenceGenerator(
             name = "book_sequence",
             sequenceName = "book_sequence",
@@ -17,12 +17,10 @@ public class Book {
     )
 //    @Column(name = "yearOfPublish")
 
-        long id;                                        //entities of the book
+        long id;
         String title;
-
         String authorFirstName;
         String authorLastName;
-
         int yearOfPublish;
         String publisherName;
 

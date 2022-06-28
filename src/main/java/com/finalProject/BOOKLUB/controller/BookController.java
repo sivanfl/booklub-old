@@ -20,28 +20,28 @@ public class BookController {
     private final BookService bookService;
     private final BookRepository bookRepository;
 
-    @Autowired                                                               //connecting to the service + data layer
+    @Autowired
     public BookController(BookService bookService, BookRepository bookRepository) {
         this.bookService = bookService;
         this.bookRepository = bookRepository;
     }
 
-    @GetMapping                                                          //return all books on the table
+    @GetMapping
     public List<Book> getBooks() {
         return bookService.getBooks();
     }
 
-    @PostMapping(consumes = {"application/json"})                       //insert new book to the table
+    @PostMapping(consumes = {"application/json"})
     public void insertNewBook(@RequestBody Book book) {
         BookService.addNewBook(book);
     }
 
-    @DeleteMapping(path = "{bookTitle}")                                //deleting specific book
+    @DeleteMapping(path = "{bookTitle}")
     public void deleteBook(@PathVariable("bookTitle") Book bookTitle) {
         bookService.deleteBook(bookTitle);
     }
 
-    @PutMapping(path = "{bookId}")                                      //update details of existing book in the table
+    @PutMapping(path = "{bookId}")
     public void updateBook(
             @PathVariable("bookId") long bookId,
             @RequestParam(required = false) String title,
@@ -50,7 +50,7 @@ public class BookController {
     }
 
 
-    @GetMapping("/find")                                                //search api- one parameter at a time
+    @GetMapping("/find")
     public Optional<Book> findBookByFirstName(
             @Or({
                     @Spec(params="title", path="title", spec = LikeIgnoreCase.class),
@@ -63,11 +63,6 @@ public class BookController {
 
         return bookService.searchBook(bookSpec);
     }
-
-                                                                            //search api- multiply parameters
-
-
-
 
 
 
