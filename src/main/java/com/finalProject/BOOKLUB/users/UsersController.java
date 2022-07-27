@@ -1,9 +1,13 @@
 package com.finalProject.booklub.users;
 
+import net.kaczmarzyk.spring.data.jpa.domain.LikeIgnoreCase;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.Or;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/v1/users")
@@ -11,12 +15,10 @@ import java.util.List;
 public class UsersController {
 
     private final UsersService usersService;
-    private final UsersRepository usersRepository;
 
     @Autowired
-    public UsersController(UsersService usersService, UsersRepository usersRepository) {
+    public UsersController(UsersService usersService) {
         this.usersService = usersService;
-        this.usersRepository = usersRepository;
     }
 
 
@@ -38,39 +40,36 @@ public class UsersController {
     @PutMapping(path = "{usersId}")
     public void updateUser(
             @PathVariable("usersId") long usersId,
-            @RequestParam(required = false) String FullName,
+            @RequestParam(required = false) String fullName,
             @RequestParam(required = false) String phoneNumber,
-            @RequestParam(required = false) String email) {
-        usersService.updateUser(usersId, FullName, phoneNumber, email);
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String city,
+            @RequestParam(required = false) String street,
+            @RequestParam(required = false) String readingCategory,
+            @RequestParam(required = false) String username,
+            @RequestParam(required = false) String password) {
+        usersService.updateUser(usersId, fullName, phoneNumber, email, city, street, readingCategory, username, password);
     }
+
+
+    @GetMapping("/findUser")
+    public Optional<Users> findUsersByFullName(
+            @Or({
+                    @Spec(params = "fullName", path = "fullName", spec = LikeIgnoreCase.class),
+                    @Spec(params = "phoneNumber", path = "phoneNumber", spec = LikeIgnoreCase.class),
+                    @Spec(params = "email", path = "email", spec = LikeIgnoreCase.class),
+                    @Spec(params = "city", path = "city", spec = LikeIgnoreCase.class),
+                    @Spec(params = "street", path = "street", spec = LikeIgnoreCase.class),
+                    @Spec(params = "readingCategory", path = "readingCategory", spec = LikeIgnoreCase.class),
+                    @Spec(params = "username", path = "username", spec = LikeIgnoreCase.class),
+                    @Spec(params = "password", path = "password", spec = LikeIgnoreCase.class)
+            })
+            Specification<Users> usersSpec) {
+
+        return usersService.searchUser(usersSpec);
+    }
+
 }
-
-
-//    @GetMapping("/find")
-//    public Optional<Users> findUsersByFullName(
-//            @Or({
-//                    @Spec(params="FullName", path="title", spec = LikeIgnoreCase.class),
-//                    @Spec(params="authorFirstName", path = "authorFirstName", spec = LikeIgnoreCase.class),
-//                    @Spec(params="authorLastName", path = "authorLastName", spec = LikeIgnoreCase.class),
-//                    @Spec(params="yearOfPublish", path = "yearOfPublish", spec = LikeIgnoreCase.class),
-//                    @Spec(params="publisherName", path = "publisherName", spec = LikeIgnoreCase.class)
-//            })
-//            Specification<Users> bookSpec) {
-//
-//        return usersService.searchUser(bookSpec);
-//    }
-
-
-
-//    private static final List<Users> USERS = Arrays.asList(
-//            new Users(1, "James Bond","jamesbond@gmail.com", "0564736756" ),
-//            new Users(2, "Maria Jones","MariaJones@gmail.com", "0566786756"),
-//            new Users(3, "Anna Smith","AnnaSmith@gmail.com", "0564456756")
-//    );
-
-
-
-
 
 
 

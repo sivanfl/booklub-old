@@ -48,7 +48,7 @@ public class BookController {
 
 
     @GetMapping("/find")
-    public Optional<Book> findBookByFirstName(
+    public Optional<Book> findBook(
             @Or({
                     @Spec(params="title", path="title", spec = LikeIgnoreCase.class),
                     @Spec(params="authorFirstName", path = "authorFirstName", spec = LikeIgnoreCase.class),

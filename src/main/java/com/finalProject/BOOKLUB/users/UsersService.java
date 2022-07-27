@@ -39,22 +39,39 @@ public class UsersService {
         }
 
     @Transactional
-    public void updateUser(long usersId, String FullName, String phoneNumber, String email){
-        Users users = usersRepository.findById(usersId).orElseThrow(() -> new IllegalStateException("the book is not exist"));
+    public void updateUser(long id, String fullName, String phoneNumber, String email,String city,
+                           String street, String readingCategory,String username, String password){
 
-        if (FullName != null && FullName.length() > 0 && !Objects.equals(users.getFullName(), FullName)){
-            users.setFullName(FullName);
+        Users users = usersRepository.findById(id).orElseThrow(() -> new IllegalStateException("the user is not registered"));
+
+        if (fullName != null && fullName.length() > 0 && !Objects.equals(users.getFullName(), fullName)){
+            users.setFullName(fullName);
         }
         if (phoneNumber != null && phoneNumber.length()> 0 && !Objects.equals(users.getPhoneNumber(), phoneNumber)){
             users.setPhoneNumber(phoneNumber);
         }
-        if (phoneNumber != null && email.length()> 0 && !Objects.equals(users.getEmail(), email)){
+        if (email != null && email.length()> 0 && !Objects.equals(users.getEmail(), email)){
             users.setEmail(email);
+        }
+        if (city != null && city.length() > 0 && !Objects.equals(users.getCity(), city)){
+            users.setCity(city);
+        }
+        if (street != null && street.length()> 0 && !Objects.equals(users.getStreet(), street)){
+            users.setStreet(street);
+        }
+        if (readingCategory != null && readingCategory.length()> 0 && !Objects.equals(users.getReadingCategory(), readingCategory)){
+            users.setReadingCategory(readingCategory);
+        }
+        if (username != null && username.length()> 0 && !Objects.equals(users.getUsername(), username)){
+            users.setUsername(username);
+        }
+        if (password != null && password.length()> 0 && !Objects.equals(users.getPassword(), password)){
+            users.setPassword(password);
         }
     }
 
-        public Optional<Users> searchUser (Specification<Users> bookSpec) {
-            return usersRepository.findOne(bookSpec);
+        public Optional<Users> searchUser (Specification<Users> usersSpec) {
+            return usersRepository.findOne(usersSpec);
         }
 
 }
