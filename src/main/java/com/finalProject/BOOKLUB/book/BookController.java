@@ -5,13 +5,14 @@ import net.kaczmarzyk.spring.data.jpa.web.annotation.Or;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController
-@RequestMapping(path = "api/v1/BOOKLUB")
+@Controller
+@RequestMapping(path = "/books")
 public class BookController {
 
     private final BookService bookService;
@@ -28,7 +29,7 @@ public class BookController {
         return bookService.getBooks();
     }
 
-    @PostMapping(consumes = {"application/json"})
+    @PostMapping(path = "/books/save", consumes = {"application/json"})
     public void insertNewBook(@RequestBody Book book) {
         bookService.addNewBook(book);
     }
@@ -47,14 +48,14 @@ public class BookController {
     }
 
 
-    @GetMapping("/find")
+    @GetMapping(value = "search")
     public Optional<Book> findBook(
             @Or({
-                    @Spec(params="title", path="title", spec = LikeIgnoreCase.class),
-                    @Spec(params="authorFirstName", path = "authorFirstName", spec = LikeIgnoreCase.class),
-                    @Spec(params="authorLastName", path = "authorLastName", spec = LikeIgnoreCase.class),
-                    @Spec(params="yearOfPublish", path = "yearOfPublish", spec = LikeIgnoreCase.class),
-                    @Spec(params="publisherName", path = "publisherName", spec = LikeIgnoreCase.class)
+                    @Spec(params = "title", path = "title", spec = LikeIgnoreCase.class),
+                    @Spec(params = "authorFirstName", path = "authorFirstName", spec = LikeIgnoreCase.class),
+                    @Spec(params = "authorLastName", path = "authorLastName", spec = LikeIgnoreCase.class),
+                    @Spec(params = "yearOfPublish", path = "yearOfPublish", spec = LikeIgnoreCase.class),
+                    @Spec(params = "publisherName", path = "publisherName", spec = LikeIgnoreCase.class)
             })
             Specification<Book> bookSpec) {
 
@@ -62,5 +63,10 @@ public class BookController {
     }
 
 
+    @GetMapping("/bookTitleAutocomplete")
+    @ResponseBody
+    public List<String> bookTitleAutocomplete(@RequestParam(value = "term", required = false, defaultValue = "") String term) {
+        return bookService.bookTitleAutocomplete(term);
+    }
 
 }

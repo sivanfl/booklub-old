@@ -1,12 +1,11 @@
 package com.finalProject.booklub.book;
 
-import com.finalProject.booklub.book.Book;
-import com.finalProject.booklub.book.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -16,11 +15,11 @@ public class BookService{
     private static BookRepository bookRepository;
 
    @Autowired
-    public BookService(BookRepository bookRepository)  {
+    public  BookService(BookRepository bookRepository)  {
         this.bookRepository = bookRepository;
     }
 
-    public List<Book> getBooks() {
+    public static List<Book> getBooks() {
        return bookRepository.findAll();
         }
 
@@ -57,5 +56,14 @@ public class BookService{
     public Optional<Book> searchBook (Specification<Book> bookSpec) {
         return bookRepository.findOne(bookSpec);
         }
+
+    public List<String> bookTitleAutocomplete(String term) {
+        List<String> allBookTitle = new ArrayList<>();
+        List<Book> bookList = BookService.getBooks();
+        for (Book book : bookList){
+            allBookTitle.add(book.getTitle());}
+        return allBookTitle;
+    }
+
 
 }

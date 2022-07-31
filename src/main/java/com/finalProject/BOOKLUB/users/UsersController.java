@@ -53,7 +53,7 @@ public class UsersController {
 
 
     @GetMapping("/findUser")
-    public Optional<Users> findUsersByFullName(
+    public Optional<Users> findUsers(
             @Or({
                     @Spec(params = "fullName", path = "fullName", spec = LikeIgnoreCase.class),
                     @Spec(params = "phoneNumber", path = "phoneNumber", spec = LikeIgnoreCase.class),
