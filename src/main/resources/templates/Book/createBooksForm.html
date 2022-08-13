@@ -15,13 +15,12 @@
         <div class="col-md-6">
             <a class="btn btn-info" href="#" th:href="@{/books/all}"> Back to All Books </a>
             <!--/*@thymesVar id="book" type="com.finalProject.booklub.book.Book"*/-->
-            <form action="#" class="form-horizontal" th:action="@{/books/all}"  th:object="${book}" method="post">
+            <form action="#" class="form-horizontal" th:action="@{/books/add}"  th:object="${book}" method="post">
                 <fieldset>
-              <span class="pull-right">
+                    <span class="pull-right">
                         <input type="submit" id="submitButton" class="btn btn-success" th:value="Save">
-                        <input type=reset id="reset" class="btn btn-danger" value="Reset"/>
-              </span>
-
+                        <input type="reset" id="resetButton" class="btn btn-danger" th:value="Reset"/>
+                    </span>
                     <table class="table">
                         <thead>
                         <tr>
@@ -34,7 +33,6 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <!--/*@thymesVar id="book" type="com.finalProject.booklub.book.Book"*/-->
                             <td><label><input th:placeholder="title"           th:type="text"  th:field="${book.title}"           required/></label></td>
                             <td><label><input th:placeholder="authorFirstName" th:type="text"  th:field="${book.authorFirstName}" required/></label></td>
                             <td><label><input th:placeholder="authorLastName"  th:type="text"  th:field="${book.authorLastName}"  required/></label></td>

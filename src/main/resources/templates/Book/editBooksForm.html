@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
 <head>
     <title>Edit Books</title>
@@ -12,10 +13,9 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <a class="btn btn-info" href="#" th:href="@{/books}"> Back to All Books </a>
+            <a class="btn btn-info" href="#" th:href="@{/books/all}"> Back to All Books </a>
             <!--/*@thymesVar id="book" type="com.finalProject.booklub.book.Book"*/-->
-
-            <form action="#" th:action="@{/books/all}"  th:object="${book}" method="post">
+            <form action="#"  th:action="@{/books/add}"   th:object="${book}" method="post">
                 <fieldset>
 					<span class="pull-right">
 						    <input type="submit" id="submitButton" class="btn btn-success" th:value="Save">
@@ -24,6 +24,7 @@
                     <table class="table">
                         <thead>
                         <tr>
+                            <th></th>
                             <th>title</th>
                             <th>author First Name</th>
                             <th>author Last Name</th>
@@ -32,8 +33,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <!--/*@thymesVar id="book" type="com.finalProject.booklub.book.Book"*/-->
-                            <td><label><input th:placeholder="title"           th:type="text"  th:value="${book.title}" th:name="title"/></label></td>
+
+                            <td><label><input th:placeholder="id"              th:type="hidden"th:field="${book.id}"              required/></label></td>
                             <td><label><input th:placeholder="title"           th:type="text"  th:field="${book.title}"           required/></label></td>
                             <td><label><input th:placeholder="authorFirstName" th:type="text"  th:field="${book.authorFirstName}" required/></label></td>
                             <td><label><input th:placeholder="authorLastName"  th:type="text"  th:field="${book.authorLastName}"  required/></label></td>

@@ -38,7 +38,7 @@
                     <td><span th:text="${book.yearOfPublish}"> yearOfPublish </span></td>
                     <td><span th:text="${book.publisherName}"> publisherName </span></td>
                     <td>
-                        <a th:href="@{books/update/{id}(id=${book.id})}" class="btn btn-primary">Edit</a>
+                        <a class="btn btn-primary" href="#" th:href="@{books/update/{id}(id=${book.id})}"> Edit </a>
                     </td>
                     <td>
                         <a th:href="@{books/delete/{id}(id=${book.id})}" class="btn btn-danger" >Delete</a></td>
@@ -48,16 +48,11 @@
                 </tbody>
             </table>
         </div>
-        <!--/*@thymesVar id="books" type="java.util.List<com.finalProject.booklub.book.Book>"*/-->
-        <!--/*@thymesVar id="book" type="com.finalProject.booklub.book.Book"*/-->
         <div class="col-md-6">
             <a class="btn btn-success" href="#" th:href="@{/books/add}"> Add Books </a>
-<!--            <a class="btn btn-primary" href="#" th:href="@{/books/edit}" th:classappend="${books.isEmpty} ? 'disabled' : ''"> Edit Books </a>-->
-<!--            <a class="btn btn-danger"  href="#" th:href="@{/delete/{bookTitle}}"> Delete book </a>-->
         </div>
     </div>
 </div>
 </body>
 </html>
 
-<!--"(bookTitle=${book.getTitle()})}"-->
