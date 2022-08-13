@@ -1,6 +1,5 @@
 package com.finalProject.booklub.book;
 
-import com.finalProject.booklub.book.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;

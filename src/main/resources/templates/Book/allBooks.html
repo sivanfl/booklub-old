@@ -1,4 +1,5 @@
-<html xmlns:th="http://www.thymeleaf.org" lang="">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
 <head>
     <title>All Books</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
@@ -24,25 +25,39 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:if="${books.isEmpty}">
+                <!--/*@thymesVar id="books" type="java.util.List<com.finalProject.booklub.book.Book>"*/-->
+                <tr th:if="${books.isEmpty()}">
                     <td colspan="2"> No Books Available </td>
                 </tr>
-                <tr th:each="book : ${getBooks}">
-                    <td><span th:text="${book.getTitle()}"> Title </span></td>
+                <!--/*@thymesVar id="book" type="com.finalProject.booklub.book.Book"*/-->
+                <tr th:each="book : ${books}">
+                    <td><span th:text="${book.id}"> id </span></td>
+                    <td><span th:text="${book.title}"> Title </span></td>
                     <td><span th:text="${book.authorFirstName}"> authorFirstName </span></td>
                     <td><span th:text="${book.authorLastName}"> authorLastName </span></td>
                     <td><span th:text="${book.yearOfPublish}"> yearOfPublish </span></td>
                     <td><span th:text="${book.publisherName}"> publisherName </span></td>
+                    <td>
+                        <a th:href="@{books/update/{id}(id=${book.id})}" class="btn btn-primary">Edit</a>
+                    </td>
+                    <td>
+                        <a th:href="@{books/delete/{id}(id=${book.id})}" class="btn btn-danger" >Delete</a></td>
+                    </td>
 
                 </tr>
                 </tbody>
             </table>
         </div>
+        <!--/*@thymesVar id="books" type="java.util.List<com.finalProject.booklub.book.Book>"*/-->
+        <!--/*@thymesVar id="book" type="com.finalProject.booklub.book.Book"*/-->
         <div class="col-md-6">
-            <a class="btn btn-success" href="#" th:href="@{/books/create}"> Add Books </a>
-            <a class="btn btn-primary" href="#" th:href="@{/books/edit}" th:classappend="${books.isEmpty} ? 'disabled' : ''"> Edit Books </a>
+            <a class="btn btn-success" href="#" th:href="@{/books/add}"> Add Books </a>
+<!--            <a class="btn btn-primary" href="#" th:href="@{/books/edit}" th:classappend="${books.isEmpty} ? 'disabled' : ''"> Edit Books </a>-->
+<!--            <a class="btn btn-danger"  href="#" th:href="@{/delete/{bookTitle}}"> Delete book </a>-->
         </div>
     </div>
 </div>
 </body>
 </html>
+
+<!--"(bookTitle=${book.getTitle()})}"-->

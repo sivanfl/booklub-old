@@ -1,10 +1,14 @@
 package com.finalProject.booklub.users;
 
+import lombok.Builder;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
 @SecondaryTable(name= "log_in_users", pkJoinColumns = @PrimaryKeyJoinColumn(name = "id"))
+@Builder
+
 public class Users {
 
     @Id
@@ -47,6 +51,20 @@ public class Users {
         this.readingCategory = readingCategory;
         this.username = username;
         this.password = password;
+    }
+
+    public Users(long id, String fullName, String email, String phoneNumber, String city, String street, String readingCategory, String username, String password, boolean isValid, boolean isExpired) {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.city = city;
+        this.street = street;
+        this.readingCategory = readingCategory;
+        this.username = username;
+        this.password = password;
+        this.isValid = isValid;
+        this.isExpired = isExpired;
     }
 
     public long getId() {

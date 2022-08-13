@@ -1,4 +1,5 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
 <head>
     <title>Add Books</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
@@ -12,16 +13,15 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <a class="btn btn-info" href="#" th:href="@{/books}"> Back to All Books </a>
-            <form action="#" class="form-horizontal"
-                  th:action="@{/books/save}"
-                  th:object="${form}"
-                  method="put">
+            <a class="btn btn-info" href="#" th:href="@{/books/all}"> Back to All Books </a>
+            <!--/*@thymesVar id="book" type="com.finalProject.booklub.book.Book"*/-->
+            <form action="#" class="form-horizontal" th:action="@{/books/all}"  th:object="${book}" method="post">
                 <fieldset>
-					<span class="pull-right">
-						    <input type="submit" id="submitButton" class="btn btn-success" th:value="Save">
-						    <input type="reset" id="resetButton" class="btn btn-danger" th:value="Reset"/>
-					</span>
+              <span class="pull-right">
+                        <input type="submit" id="submitButton" class="btn btn-success" th:value="Save">
+                        <input type=reset id="reset" class="btn btn-danger" value="Reset"/>
+              </span>
+
                     <table class="table">
                         <thead>
                         <tr>
@@ -33,13 +33,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="book, itemStat : ${form.books}">
-                            <td><input th:placeholder="Title + ' ' + ${itemStat.count}" th:field="*{books[__${itemStat.index}__].title}" required/></td>
-                            <td><input th:placeholder="author First Name + ' ' + ${itemStat.count}" th:field="*{books[__${itemStat.index}__].authorFirstName}" required/></td>
-                            <td><input th:placeholder="author Last Name + ' ' + ${itemStat.count}" th:field="*{books[__${itemStat.index}__].authorLastName}" required/></td>
-                            <td><input th:placeholder="year Of Publish + ' ' + ${itemStat.count}" th:field="*{books[__${itemStat.index}__].yearOfPublish}" required/></td>
-                            <td><input th:placeholder="publisher Name + ' ' + ${itemStat.count}" th:field="*{books[__${itemStat.index}__].publisherName}" required/></td>
-
+                        <tr>
+                            <!--/*@thymesVar id="book" type="com.finalProject.booklub.book.Book"*/-->
+                            <td><label><input th:placeholder="title"           th:type="text"  th:field="${book.title}"           required/></label></td>
+                            <td><label><input th:placeholder="authorFirstName" th:type="text"  th:field="${book.authorFirstName}" required/></label></td>
+                            <td><label><input th:placeholder="authorLastName"  th:type="text"  th:field="${book.authorLastName}"  required/></label></td>
+                            <td><label><input th:placeholder="yearOfPublish"   th:type="text"  th:field="${book.yearOfPublish}"   required/></label></td>
+                            <td><label><input th:placeholder="publisherName"   th:type="text"  th:field="${book.publisherName}"   required/></label></td>
                         </tr>
                         </tbody>
                     </table>
@@ -49,4 +49,4 @@
     </div>
 </div>
 </body>
-</html>
+

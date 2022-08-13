@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete book</title>
+</head>
+<body>
+<form action="#" th:action="@{'/{bookTitle}'(id=${bookTitle})}" th:method="delete" >
+
+    <input type="hidden" name="_method" value="delete" />
+    <button type="submit" id="submitButton"> </button>
+</form>
+
+</body>
+</html>

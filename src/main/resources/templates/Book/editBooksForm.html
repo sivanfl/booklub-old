@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
 <head>
     <title>Edit Books</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
@@ -13,10 +13,9 @@
     <div class="row">
         <div class="col-md-6">
             <a class="btn btn-info" href="#" th:href="@{/books}"> Back to All Books </a>
-            <form action="#" class="form-horizontal"
-                  th:action="@{/books/save}"
-                  th:object="${form}"
-                  method="post">
+            <!--/*@thymesVar id="book" type="com.finalProject.booklub.book.Book"*/-->
+
+            <form action="#" th:action="@{/books/all}"  th:object="${book}" method="post">
                 <fieldset>
 					<span class="pull-right">
 						    <input type="submit" id="submitButton" class="btn btn-success" th:value="Save">
@@ -33,15 +32,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="book, itemStat : ${form.books}">
-                            <td><input hidden th:name="|books${itemStat.index}.id|" th:value="${book.getId()}"/></td>
-                            <td><input th:placeholder="Title + ' ' + ${itemStat.count}" th:name="|books${itemStat.index}.title|" th:value="${book.getTitle()}" required/></td>
-                            <td><input th:placeholder="author First Name + ' ' + ${itemStat.count}" th:name="|books${itemStat.index}.authorFirstName|" th:value="${book.getAuthorFirstName()}" required/></td>
-                            <td><input th:placeholder="author Last Name + ' ' + ${itemStat.count}" th:name="|books${itemStat.index}.authorLastName|" th:value="${book.getAuthorLastName()}" required/></td>
-                            <td><input th:placeholder="year Of Publish + ' ' + ${itemStat.count}" th:name="|books${itemStat.index}.yearOfPublish|" th:value="${book.getYearOfPublish()}" required/></td>
-                            <td><input th:placeholder="publisher Name + ' ' + ${itemStat.count}" th:name="|books${itemStat.index}.publisherName|" th:value="${book.getPublisherName()}" required/></td>
-
-                        </tr>
+                        <!--/*@thymesVar id="book" type="com.finalProject.booklub.book.Book"*/-->
+                            <td><label><input th:placeholder="title"           th:type="text"  th:value="${book.title}" th:name="title"/></label></td>
+                            <td><label><input th:placeholder="title"           th:type="text"  th:field="${book.title}"           required/></label></td>
+                            <td><label><input th:placeholder="authorFirstName" th:type="text"  th:field="${book.authorFirstName}" required/></label></td>
+                            <td><label><input th:placeholder="authorLastName"  th:type="text"  th:field="${book.authorLastName}"  required/></label></td>
+                            <td><label><input th:placeholder="yearOfPublish"   th:type="text"  th:field="${book.yearOfPublish}"   required/></label></td>
+                            <td><label><input th:placeholder="publisherName"   th:type="text"  th:field="${book.publisherName}"   required/></label></td>
                         </tbody>
                     </table>
                 </fieldset>
